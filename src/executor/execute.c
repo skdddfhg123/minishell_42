@@ -6,7 +6,7 @@
 /*   By: dongmlee <dongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 04:58:07 by dongmlee          #+#    #+#             */
-/*   Updated: 2022/05/26 05:06:06 by dongmlee         ###   ########.fr       */
+/*   Updated: 2022/05/29 23:36:48 by dongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	execute_cmds(t_cmd *cmds)
 		if (cmds->cmd)
 		{
 			exec_cmd(cmds, flag);
-			break;
+			break ;
 		}
 		break ;
 	}

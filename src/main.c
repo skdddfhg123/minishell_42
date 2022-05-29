@@ -6,7 +6,7 @@
 /*   By: dongmlee <dongmlee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:00:43 by dongmlee          #+#    #+#             */
-/*   Updated: 2022/05/26 05:02:50 by dongmlee         ###   ########.fr       */
+/*   Updated: 2022/05/30 00:20:26 by dongmlee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	get_paths(void)
 		g_state.safe_paths[i] = paths[i];
 		i++;
 	}
-	// for (int i = 0; g_state.safe_paths[i]; i++)
-	// 	printf("%d %s\n",i,  g_state.safe_paths[i]);
+	for (int i = 0; g_state.safe_paths[i]; i++)
+		printf("%d %s\n",i,  g_state.safe_paths[i]);
 	g_state.safe_paths[i] = NULL;
 	free(paths);
 }
@@ -64,7 +64,7 @@ static int	routine(t_cmd	*cmds)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_cmd	cmds;
+	t_cmd			cmds;
 
 	(void)argc;
 	(void)argv;
