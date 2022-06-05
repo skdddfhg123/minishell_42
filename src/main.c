@@ -6,7 +6,7 @@
 /*   By: idongmin <idongmin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:00:43 by dongmlee          #+#    #+#             */
-/*   Updated: 2022/06/05 18:17:52 by idongmin         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:24:25 by idongmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	routine(t_cmd	*cmds)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_cmd	cmds;
+	t_cmd			cmds;
 
 	(void)argc;
 	(void)argv;
