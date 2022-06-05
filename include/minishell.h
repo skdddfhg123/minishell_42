@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongmlee <dongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idongmin <idongmin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 17:09:21 by idongmin          #+#    #+#             */
-/*   Updated: 2022/05/26 05:04:22 by dongmlee         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:18:20 by idongmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -27,6 +28,31 @@
 # include <sys/stat.h>
 
 # include "../libft/libft.h"
+
+typedef struct s_heredoc
+{
+	char	*end_string;
+	char	*file_name;
+}	t_heredoc;
+
+typedef struct s_node
+{
+	t_node_type		type;
+	char			*file_name;
+	int				heredoc_idx;
+	struct s_node	*left;
+	struct s_node	*right;
+}	t_node;
+
+typedef enum e_node_type
+{
+	TYPE_IN_OVERWRITE,
+	TYPE_OUT_OVERWRITE,
+	TYPE_HEREDOC,
+	TYPE_OUT_APPEND,
+	TYPE_CMD,
+	TYPE_ETC
+}	t_node_type;
 
 typedef struct s_state
 {
@@ -36,26 +62,20 @@ typedef struct s_state
 	char	*pwd;
 	char	*oldpwd;
 	int		exit_status;
+	int		signal;
 }	t_state;
-
-typedef struct s_pipe
-{
-	int				pipes[2];
-	struct s_pipe	*next;
-	struct s_pipe	*previous;
-}	t_pipe;
 
 typedef struct s_cmd
 {
 	char			**args;
+	char			*cmd_path;
 	char			*cmd;
 	int				length;
 	int				type;
 	char			pipe;
-	int				pipes[2];
-	// t_pipe			*pipes;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	int				pid;
+	int				fd;
+	t_node			*root;
 }					t_cmd;
 
 t_state	g_state;

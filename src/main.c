@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongmlee <dongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idongmin <idongmin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:00:43 by dongmlee          #+#    #+#             */
-/*   Updated: 2022/05/26 05:02:50 by dongmlee         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:17:52 by idongmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,23 @@ static void	get_paths(void)
 
 static int	routine(t_cmd	*cmds)
 {
+	t_list	*heredoc;
+
 	while (1)
 	{
 		cmds->cmd = readline("minishell$ ");
 		if (!cmds->cmd)
 			return (1);
 		if (cmds->cmd[0] != '\0')
+		{
 			add_history(cmds->cmd);
-		execute_cmds(cmds);
+			if (!run_heredoc(heredoc))
+			{
+				signal_handle();
+				pipe_setting();
+			}
+			execute_cmds(cmds);
+		}
 		// ft_format_path(cmds);
 		// if (cmds->cmd[0] != '\0')	
 		// 	add_history(cmds->cmd);
@@ -70,7 +79,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	copy_env(envp);
 	get_paths();
-	signal_handle();
 	routine(&cmds);
 	ft_free_two_ptr(g_state.env_str);
 	g_state.exit_status = 130;

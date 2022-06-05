@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dongmlee <dongmlee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idongmin <idongmin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:39:52 by dongmlee          #+#    #+#             */
-/*   Updated: 2022/05/26 03:14:29 by dongmlee         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:52:53 by idongmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static void	handle_signal(int sig)
 
 void	signal_handle(void)
 {
+	struct termios	term;
+
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
